@@ -15,7 +15,14 @@ class StudentController extends Controller
     {
         $students = Student::orderBy('full_name')->paginate(10);
 
-        return view('students.index', compact('students'));
+        $summary = [
+            'total_students' => Student::count(),
+            'programs' => Student::query()->distinct()->count('course'),
+            'year_levels' => Student::query()->distinct()->count('year_level'),
+            'pages' => $students->lastPage(),
+        ];
+
+        return view('students.index', compact('students', 'summary'));
     }
 
     /**

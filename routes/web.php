@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/students');
+Route::get('/', fn () => redirect()->route('students.index'));
 Route::resource('students', StudentController::class);
